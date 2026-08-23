@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Словарь — RestLingo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <script>
+    if (localStorage.getItem('restlingo_theme') === 'light') {
+        document.body.classList.add('light');
+        document.body.style.opacity = '0';
+    }
+</script>
+
+    <script>
+        if (localStorage.getItem('restlingo_theme') === 'light') {
+            document.body.classList.add('light');
+            document.body.style.opacity = '0';
+        }
+    </script>
+
+    <div class="app">
+
+        <header class="header">
+            <div class="logo">🌙 RestLingo</div>
+            <nav class="nav">
+                <a href="index.html">Карточки</a>
+                <a href="test.html">Тест</a>
+                <a href="dictionary.html">Словарь</a>
+                <a href="feedback.html">Обратная связь</a>
+            </nav>
+        </header>
+
+        <main class="dictionary-wrap">
+            <h2>📖 Словарь</h2>
+            <p class="dictionary-sub">Все твои слова и фразы</p>
+
+            <input type="text" id="dictionary-search" placeholder="Поиск по слову или переводу">
+
+            <div class="dictionary-filter">
+                <button class="filter-btn active" data-type="all">Все</button>
+                <button class="filter-btn" data-type="word">Слова</button>
+                <button class="filter-btn" data-type="phrase">Фразы</button>
+            </div>
+
+            <div id="dictionary-list" class="dictionary-list"></div>
+        </main>
+
+    </div>
+
+    <script src="dictionary.js"></script>
+</body>
+</html>
