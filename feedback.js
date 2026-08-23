@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('send-feedback');
     const typeButtons = document.querySelectorAll('.feedback-type-btn');
 
-    const TOKEN = '8838463728:AAE-MPRExTau_zkVnAjuk5TPYAQqi7Cdr4k';
-    const CHAT_ID = '8345303973';
-
     let selectedType = '💬 Сообщение';
 
     typeButtons.forEach(btn => {
@@ -32,18 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+        const data = {
+            type: selectedType,
+            message: message
+        };
 
         try {
-            await fetch(url, {
+            await fetch('https://formspree.io/f/mbgreaqq', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: `📩 RestLingo\n${selectedType}\n\n${message}`
-                })
+                body: JSON.stringify(data)
             });
 
             alert('Спасибо! Сообщение отправлено');
@@ -54,29 +51,4 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Не получилось отправить. Попробуй ещё раз');
         }
     });
-    function createFirefly() {
-    const firefly = document.createElement('div');
-    firefly.className = 'firefly';
-    firefly.style.left = Math.random() * 100 + '%';
-    firefly.style.animationDuration = (Math.random() * 8 + 9) + 's';
-    firefly.style.animationDelay = Math.random() * 6 + 's';
-    document.body.appendChild(firefly);
-}
-
-for (let i = 0; i < 14; i++) {
-    createFirefly();
-}
-
-function createFirefly() {
-    const firefly = document.createElement('div');
-    firefly.className = 'firefly';
-    firefly.style.left = Math.random() * 100 + '%';
-    firefly.style.animationDuration = (Math.random() * 8 + 9) + 's';
-    firefly.style.animationDelay = Math.random() * 6 + 's';
-    document.body.appendChild(firefly);
-}
-
-for (let i = 0; i < 14; i++) {
-    createFirefly();
-}
 });
