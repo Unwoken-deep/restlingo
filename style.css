@@ -1,0 +1,554 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #12121c;
+    color: #f5f0e8;
+    height: 100vh;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+.app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    position: relative;
+}
+
+/* Шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(245, 199, 106, 0.08);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f5c76a;
+    letter-spacing: 1px;
+}
+
+.nav {
+    display: flex;
+    gap: 35px;
+}
+
+.nav a {
+    color: #cfc8d0;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.2s;
+}
+
+.nav a:hover {
+    color: #f5c76a;
+}
+
+/* Основная сетка */
+.layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 200px 1fr 280px;
+    gap: 40px;
+    align-items: start;
+    padding-top: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Луна / Солнце */
+.moon-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.moon {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 28% 28%, #fdfcf5 0%, #e8e2cc 22%, #c9c2a6 45%, #a09a82 65%, #6f6a58 85%, #3f3c33 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        inset -28px -18px 50px rgba(0,0,0,0.65),
+        inset 14px 10px 25px rgba(255,255,255,0.22),
+        0 0 60px rgba(220, 210, 180, 0.25);
+    animation: moonFloat 8s ease-in-out infinite;
+    transition: background 0.5s, box-shadow 0.5s;
+}
+
+@keyframes moonFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-11px);
+    }
+}
+
+/* Кратеры */
+.moon::before {
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 35px;
+    left: 35px;
+    background: radial-gradient(circle, rgba(100,95,80,0.5), transparent 70%);
+    border-radius: 50%;
+    box-shadow:
+        70px 55px 0 -5px rgba(100,95,80,0.4),
+        40px 95px 0 -10px rgba(100,95,80,0.5),
+        105px 25px 0 -8px rgba(100,95,80,0.35);
+}
+
+.moon::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    bottom: 35px;
+    right: 45px;
+    background: radial-gradient(circle, rgba(100,95,80,0.45), transparent 70%);
+    border-radius: 50%;
+    box-shadow:
+        -65px -45px 0 -6px rgba(100,95,80,0.4);
+}
+
+.days {
+    margin-top: 18px;
+    font-size: 1.8em;
+}
+
+.moon-phrase {
+    margin-top: 6px;
+    color: #8b8490;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Карточка */
+.card-zone {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 10px;
+}
+
+.card {
+    flex: 1;
+    height: 270px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    background: #1f1f2e;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+    padding: 20px;
+    transition: background 0.3s;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: #29251f;
+}
+
+#word, #translation {
+    font-size: 2.4em;
+    text-align: center;
+}
+
+#translation {
+    color: #f5c76a;
+}
+
+.hint {
+    margin-top: 20px;
+    color: #8b8490;
+    font-size: 0.9em;
+}
+
+.arrow {
+    background: #1f1f2e;
+    color: #f5c76a;
+    border: none;
+    font-size: 2em;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.arrow:hover {
+    background: #2a2a3a;
+}
+
+/* Панель */
+.panel {
+    background: #1c1c2a;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+    transition: background 0.3s;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.panel-header h2 {
+    font-size: 1.1em;
+    color: #f5c76a;
+    margin: 0;
+}
+
+.theme-toggle {
+    background: #1f1f2e;
+    border: none;
+    color: #f5c76a;
+    font-size: 1.2em;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+    background: #2a2a3a;
+}
+
+.add-block input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 12px;
+    background: #12121c;
+    color: #f5f0e8;
+    transition: background 0.3s, color 0.3s;
+}
+
+.add-block button,
+.panel-actions button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #252535;
+    color: #f5f0e8;
+    font-size: 0.95em;
+    transition: background 0.2s;
+}
+
+.add-block button:hover,
+.panel-actions button:hover {
+    background: #2f2f42;
+}
+
+#delete-button {
+    background: #3a2525;
+}
+
+#delete-button:hover {
+    background: #4a2f2f;
+}
+
+.counter {
+    margin-top: 10px;
+    color: #8b8490;
+    font-size: 0.9em;
+}
+
+/* Словарь */
+.dictionary-wrap {
+    padding-top: 30px;
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.dictionary-wrap h2 {
+    color: #f5c76a;
+    margin-bottom: 8px;
+}
+
+.dictionary-sub {
+    color: #8b8490;
+    margin-bottom: 25px;
+}
+
+.dictionary-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.dictionary-item {
+    background: #1c1c2a;
+    border-radius: 16px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.dictionary-item .word {
+    color: #f5f0e8;
+    font-size: 1.1em;
+}
+
+.dictionary-item .translation {
+    color: #8b8490;
+    font-size: 0.95em;
+}
+
+.dictionary-item button {
+    background: #3a2525;
+    border: none;
+    color: #f5f0e8;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Светлячки / Пылинки */
+.firefly {
+    position: fixed;
+    bottom: -10px;
+    width: 3px;
+    height: 3px;
+    background: #f5c76a;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(245, 199, 106, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    animation: flyUp linear infinite;
+}
+
+@keyframes flyUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-45vh) translateX(15px);
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-90vh) translateX(-15px);
+        opacity: 0;
+    }
+}
+
+/* Фазы луны */
+.moon-phase-1 {
+    background:
+        radial-gradient(circle at 28% 28%, #fdfcf5 0%, #e8e2cc 22%, #7d7868 75%, #3f3c33 100%);
+}
+
+.moon-phase-2 {
+    background:
+        radial-gradient(circle at 28% 28%, #fdfcf5 0%, #e8e2cc 30%, #a09a82 65%, #5a5648 100%);
+}
+
+.moon-phase-3 {
+    background:
+        radial-gradient(circle at 28% 28%, #fdfcf5 0%, #e8e2cc 42%, #c9c2a6 75%, #6f6a58 100%);
+}
+
+.moon-phase-4 {
+    background:
+        radial-gradient(circle at 28% 28%, #fdfcf5 0%, #eee7d4 55%, #d4cbb0 80%, #8b836d 100%);
+}
+
+/* Светлая тема */
+body.light {
+    background: #f2ede4;
+    color: #1f1f2e;
+}
+
+body.light .header {
+    border-bottom: 1px solid rgba(184, 134, 11, 0.18);
+}
+
+body.light .logo,
+body.light .nav a:hover,
+body.light #translation,
+body.light .panel-header h2,
+body.light .arrow {
+    color: #b8860b;
+}
+
+body.light .nav a {
+    color: #5f5648;
+}
+
+body.light .hint,
+body.light .counter,
+body.light .moon-phrase {
+    color: #6b6258;
+}
+
+body.light .card-front,
+body.light .card-back {
+    background: #fffaf0;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+}
+
+body.light .panel {
+    background: #fffaf0;
+}
+
+body.light .add-block input,
+body.light .add-block button,
+body.light .panel-actions button,
+body.light .arrow {
+    background: #e9e0d0;
+    color: #1f1f2e;
+}
+
+body.light #delete-button {
+    background: #f0dddd;
+}
+
+body.light .dictionary-wrap h2 {
+    color: #b8860b;
+}
+
+body.light .dictionary-sub {
+    color: #6b6258;
+}
+
+body.light .dictionary-item {
+    background: #fffaf0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+body.light .dictionary-item .word {
+    color: #1f1f2e;
+}
+
+body.light .dictionary-item .translation {
+    color: #6b6258;
+}
+
+body.light .dictionary-item button {
+    background: #f0dddd;
+    color: #1f1f2e;
+}
+
+/* Солнце */
+body.light .moon {
+    background:
+        radial-gradient(circle at 50% 42%, #fffbe6 0%, #ffe9a3 30%, #ffd166 65%, #f0b840 100%);
+    box-shadow:
+        inset 0 0 30px rgba(255,255,240,0.7),
+        0 0 70px rgba(255, 200, 80, 0.45);
+    animation: sunFloat 8s ease-in-out infinite;
+}
+
+@keyframes sunFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+body.light .moon::before,
+body.light .moon::after {
+    display: none;
+}
+
+/* Усиление солнца */
+body.light .moon-phase-1 {
+    box-shadow:
+        inset 0 0 30px rgba(255,255,240,0.5),
+        0 0 45px rgba(255, 200, 80, 0.25);
+}
+
+body.light .moon-phase-2 {
+    box-shadow:
+        inset 0 0 30px rgba(255,255,240,0.6),
+        0 0 60px rgba(255, 200, 80, 0.35);
+}
+
+body.light .moon-phase-3 {
+    box-shadow:
+        inset 0 0 30px rgba(255,255,240,0.7),
+        0 0 75px rgba(255, 200, 80, 0.45);
+}
+
+body.light .moon-phase-4 {
+    box-shadow:
+        inset 0 0 30px rgba(255,255,240,0.85),
+        0 0 90px rgba(255, 200, 80, 0.6);
+}
+
+/* Дневные пылинки */
+body.light .firefly {
+    background: #c9a23d;
+    box-shadow: 0 0 8px rgba(180, 150, 50, 0.7);
+}
+
+#dictionary-search {
+    width: 100%;
+    padding: 13px 16px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 14px;
+    background: #1c1c2a;
+    color: #f5f0e8;
+    font-size: 1em;
+}
+
+body.light #dictionary-search {
+    background: #fffaf0;
+    color: #1f1f2e;
+}
